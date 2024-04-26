@@ -43,4 +43,18 @@ resource "aws_route_table" "myroute" {
 
 }
 
+resource "aws_route_table_association" "web1association" {
+  subnet_id      = aws_subnet.web1[0].id
+  route_table_id = aws_route_table.myroute.id
+  depends_on     = [aws_route_table.myroute]
+
+}
+
+
+resource "aws_route_table_association" "web2association" {
+  subnet_id      = aws_subnet.web1[1].id
+  route_table_id = aws_route_table.myroute.id
+  depends_on     = [aws_route_table.myroute] # explicit dependency
+}
+
 

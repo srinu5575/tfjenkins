@@ -7,8 +7,9 @@ terraform {
   }
 }
 
+
 provider "aws" {
-  region     = var.regionName # arguments(just inputs given by us to create a resource)
+  region = var.regionName # arguments(just inputs given by us to create a resource)
 }
 
 
