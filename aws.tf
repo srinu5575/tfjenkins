@@ -14,4 +14,14 @@ provider "aws" {
 
 
 
+terraform {
+  backend "s3" {
+    bucket         = "thisbucketisforterrformstatefile"
+    key            = "statefile"
+    region         = "us-east-1"
+    dynamodb_table = "statefile"
+
+  }
+}
+
 
