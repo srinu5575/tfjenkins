@@ -40,20 +40,6 @@ resource "aws_instance" "mymachine" {
   associate_public_ip_address = true
   availability_zone           = var.azs[0]
   instance_type               = "t2.micro"
-  key_name                    = "ssh_key.pub"
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    host        = self.public_ip
-    private_key = file("~/.ssh/id_ed25519")
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update -y",
-      "sudo apt-get install nginx -y"
-    ]
-  }
   tags = {
     "name" = "myec2"
     "env"  = "test"
