@@ -10,10 +10,8 @@ terraform {
 
 provider "aws" {
   region = var.regionName # arguments(just inputs given by us to create a resource)
+  alias  = "us-east-1"
 }
-
-
-
 
 terraform {
   backend "s3" {

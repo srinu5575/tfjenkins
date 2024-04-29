@@ -14,7 +14,6 @@ data "aws_ami" "myec2machine" {
   owners = ["099720109477"] # Canonical
 }
 
-
 resource "aws_security_group" "web" {
   name        = "web-server-sg"
   description = "Security group for web server"
@@ -32,23 +31,20 @@ resource "aws_security_group" "web" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"] // Restrict SSH access to your IP
   }
-
 }
 
 resource "aws_instance" "mymachine" {
   ami                         = data.aws_ami.myec2machine.id
   associate_public_ip_address = true
-  availability_zone           = var.azs[0]
+  availability_zone           = var.azs[1]
   instance_type               = "t2.micro"
+  key_name                    = "ssh_key.pub"
   tags = {
     "name" = "myec2"
-    "env"  = "test"
+    "env"  = terraform.workspace
   }
-
-
 }
 
-
 output "instanceip" {
-  value = aws_instance.mymachine.public_ip
+  value = aws_instance.mymachine.*.public_ip  // Output the public IP addresses of all instances
 }
